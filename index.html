@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Construction</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Orbitron", sans-serif;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+        overflow: hidden;
+      }
+
+      .construction-container {
+        position: relative;
+        padding: 40px 60px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: float 3s ease-in-out infinite;
+        text-align: center;
+      }
+
+      .construction-text {
+        font-size: 48px;
+        color: #00ffff;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+        margin: 0;
+      }
+
+      .construction-subtext {
+        font-size: 18px;
+        color: #ffffff;
+        margin-top: 20px;
+        opacity: 0.7;
+      }
+
+      /* Progress Bar */
+      .progress-bar {
+        width: 80%;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        margin: 20px auto;
+        overflow: hidden;
+      }
+
+      .progress {
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(90deg, #00ffff, #00b4d8);
+        border-radius: 10px;
+        animation: progressAnimation 4s infinite;
+      }
+
+      /* Animated Tools */
+      .tools {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .tool {
+        font-size: 30px;
+        color: #00ffff;
+        animation: spin 2s infinite linear;
+      }
+
+      /* Construction Beams */
+      .beams {
+        position: relative;
+        margin-top: 30px;
+        height: 50px;
+        width: 100%;
+      }
+
+      .beam {
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        animation: beamSweep 2s infinite;
+      }
+
+      .beam:nth-child(1) {
+        top: 0;
+        animation-delay: 0s;
+      }
+      .beam:nth-child(2) {
+        top: 20px;
+        animation-delay: 0.5s;
+      }
+      .beam:nth-child(3) {
+        top: 40px;
+        animation-delay: 1s;
+      }
+
+      /* Animations */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes progressAnimation {
+        0% {
+          width: 0%;
+        }
+        50% {
+          width: 80%;
+        }
+        100% {
+          width: 60%;
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes beamSweep {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        50% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+
+      /* Particles */
+      .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .particle {
+        position: absolute;
+        background: rgba(0, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: drift 15s infinite linear;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translate(0, 0);
+          opacity: 0.5;
+        }
+        100% {
+          transform: translate(100vw, 100vh);
+          opacity: 0;
+        }
+      }
+
+      /* Google Fonts */
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+    </style>
+  </head>
+  <body>
+    <div class="construction-container">
+      <h1 class="construction-text">This Website Is Under Construction</h1>
+      <p class="construction-subtext">
+        Stay tuned for updates! we are coming soon...
+      </p>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+
+      <!-- Animated Tools -->
+      <div class="tools">
+        <span class="tool">🛠️</span>
+        <span class="tool">🔧</span>
+        <span class="tool">⚙️</span>
+      </div>
+
+      <!-- Construction Beams -->
+      <div class="beams">
+        <div class="beam"></div>
+        <div class="beam"></div>
+        <div class="beam"></div>
+      </div>
+    </div>
+
+    <div class="particles">
+      <script>
+        // Generate random particles
+        for (let i = 0; i < 20; i++) {
+          let particle = document.createElement("div");
+          particle.className = "particle";
+          particle.style.width = `${Math.random() * 5 + 2}px`;
+          particle.style.height = particle.style.width;
+          particle.style.left = `${Math.random() * 100}vw`;
+          particle.style.top = `${Math.random() * 100}vh`;
+          particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+          document.querySelector(".particles").appendChild(particle);
+        }
+      </script>
+    </div>
+  </body>
+</html>
