@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #1a2526;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        /* Mobile-first styles */
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .image-section {
+            background: url('crystalc.png') no-repeat center center/cover;
+            height: 150px;
+            transition: transform 0.5s ease;
+        }
+
+        .image-section:hover {
+            transform: scale(1.05);
+        }
+
+        .content-section {
+            background-color: #1a2526;
+            padding: clamp(10px, 2vw, 15px);
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 4vw, 1.6rem);
+            font-weight: 700;
+            margin-bottom: clamp(10px, 2vw, 15px);
+            position: relative;
+            animation: slideIn 1s ease;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: clamp(20px, 3vw, 25px);
+            height: 2px;
+            background-color: #fff;
+        }
+
+        .contact-details p, .contact-details a {
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            margin-bottom: clamp(5px, 1.5vw, 8px);
+            color: #d1d5db;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details a:hover {
+            color: #fff;
+        }
+
+        .contact-details .material-icons {
+            margin-right: clamp(5px, 1vw, 8px);
+            color: #d1d5db;
+            transition: color 0.3s ease;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+
+        .contact-details p:hover .material-icons, .contact-details a:hover .material-icons {
+            color: #fff;
+        }
+
+        .contact-details h3 {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 600;
+            margin: clamp(10px, 2vw, 15px) 0 clamp(5px, 1vw, 8px);
+            position: relative;
+            animation: fadeIn 1.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details h3 .material-icons {
+            margin-right: clamp(5px, 1vw, 8px);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+
+        .contact-details h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: clamp(15px, 2vw, 20px);
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .contact-details h3:hover::after {
+            width: clamp(30px, 4vw, 40px);
+        }
+
+        .address p {
+            margin: clamp(2px, 0.5vw, 3px) 0;
+        }
+
+        .map {
+            margin-top: clamp(10px, 2vw, 15px);
+        }
+
+        .map iframe {
+            width: 100%;
+            height: clamp(100px, 20vw, 120px);
+            border: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .map:hover iframe {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-form {
+            margin-top: clamp(10px, 2vw, 15px);
+            width: 100%;
+        }
+
+        .contact-form label {
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            font-weight: 600;
+            margin-bottom: clamp(3px, 1vw, 5px);
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .contact-form label .material-icons {
+            margin-right: clamp(5px, 1vw, 8px);
+            color: #d1d5db;
+            transition: color 0.3s ease;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+
+        .contact-form label:hover {
+            color: #fff;
+        }
+
+        .contact-form label:hover .material-icons {
+            color: #fff;
+        }
+
+        .contact-form input, .contact-form select, .contact-form textarea {
+            width: 100%;
+            padding: clamp(5px, 1.5vw, 6px);
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            margin-bottom: clamp(8px, 1.5vw, 10px);
+            border: 1px solid #d1d5db;
+            background: #2d3a3b;
+            color: #fff;
+            border-radius: 5px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #fff;
+            transform: scale(1.02);
+        }
+
+        .contact-form input:hover, .contact-form select:hover, .contact-form textarea:hover {
+            border-color: #fff;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: clamp(50px, 10vw, 60px);
+        }
+
+        .contact-form button {
+            background: #fff;
+            color: #1a2526;
+            padding: clamp(5px, 1.5vw, 6px) clamp(10px, 2vw, 12px);
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-form button .material-icons {
+            margin-right: clamp(3px, 0.5vw, 5px);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .contact-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .contact-form button:hover::before {
+            left: 100%;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-3px);
+        }
+
+        .additional-options {
+            display: none;
+            margin-top: clamp(5px, 1vw, 8px);
+        }
+
+        .additional-options.show-options {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tablet screens */
+        @media (min-width: 768px) {
+            .image-section {
+                height: 200px;
+            }
+
+            .content-section {
+                padding: clamp(15px, 2vw, 20px);
+            }
+
+            h1 {
+                font-size: clamp(1.6rem, 3vw, 1.8rem);
+                margin-bottom: clamp(15px, 2vw, 20px);
+            }
+
+            h1::after {
+                width: clamp(25px, 3vw, 30px);
+                bottom: -8px;
+            }
+
+            .contact-details p, .contact-details a {
+                font-size: clamp(0.85rem, 2vw, 0.9rem);
+                margin-bottom: clamp(8px, 1.5vw, 10px);
+            }
+
+            .contact-details .material-icons {
+                font-size: clamp(1.1rem, 2vw, 1.3rem);
+            }
+
+            .contact-details h3 {
+                font-size: clamp(1rem, 2.5vw, 1.1rem);
+                margin: clamp(15px, 2vw, 20px) 0 clamp(8px, 1vw, 10px);
+            }
+
+            .contact-details h3 .material-icons {
+                font-size: clamp(1.1rem, 2vw, 1.3rem);
+            }
+
+            .contact-details h3::after {
+                width: clamp(20px, 2vw, 25px);
+            }
+
+            .map {
+                margin-top: clamp(15px, 2vw, 20px);
+            }
+
+            .map iframe {
+                height: clamp(120px, 20vw, 150px);
+            }
+
+            .contact-form {
+                margin-top: clamp(15px, 2vw, 20px);
+            }
+
+            .contact-form label {
+                font-size: clamp(0.85rem, 2vw, 0.9rem);
+            }
+
+            .contact-form label .material-icons {
+                font-size: clamp(1.1rem, 2vw, 1.3rem);
+            }
+
+            .contact-form input, .contact-form select, .contact-form textarea {
+                padding: clamp(6px, 1.5vw, 8px);
+                font-size: clamp(0.85rem, 2vw, 0.9rem);
+                margin-bottom: clamp(10px, 1.5vw, 12px);
+            }
+
+            .contact-form textarea {
+                min-height: clamp(60px, 10vw, 80px);
+            }
+
+            .contact-form button {
+                padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2vw, 16px);
+                font-size: clamp(0.85rem, 2vw, 0.9rem);
+            }
+
+            .contact-form button .material-icons {
+                font-size: clamp(1rem, 2vw, 1.1rem);
+            }
+        }
+
+        /* Desktop screens - Optimized for one-page readability */
+        @media (min-width: 1024px) {
+            .container {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            .image-section {
+                flex: 1;
+                height: 100%;
+            }
+
+            .content-section {
+                flex: 1;
+                padding: clamp(20px, 2vw, 30px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: clamp(1.6rem, 2vw, 1.8rem);
+                margin-bottom: clamp(15px, 2vw, 20px);
+            }
+
+            h1::after {
+                width: clamp(30px, 3vw, 40px);
+            }
+
+            .contact-details p, .contact-details a {
+                font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+                margin-bottom: clamp(5px, 1vw, 8px);
+            }
+
+            .contact-details .material-icons {
+                font-size: clamp(1rem, 1.5vw, 1.2rem);
+            }
+
+            .contact-details h3 {
+                font-size: clamp(0.9rem, 1.5vw, 1rem);
+                margin: clamp(10px, 1.5vw, 15px) 0 clamp(5px, 1vw, 8px);
+            }
+
+            .contact-details h3 .material-icons {
+                font-size: clamp(1rem, 1.5vw, 1.2rem);
+            }
+
+            .contact-details h3::after {
+                width: clamp(20px, 2vw, 25px);
+            }
+
+            .map {
+                margin-top: clamp(10px, 1.5vw, 15px);
+            }
+
+            .map iframe {
+                height: clamp(100px, 10vh, 120px);
+            }
+
+            .contact-form {
+                margin-top: clamp(10px, 1.5vw, 15px);
+                max-width: clamp(300px, 40vw, 350px);
+            }
+
+            .contact-form label {
+                font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+            }
+
+            .contact-form label .material-icons {
+                font-size: clamp(1rem, 1.5vw, 1.2rem);
+            }
+
+            .contact-form input, .contact-form select, .contact-form textarea {
+                padding: clamp(5px, 1vw, 6px);
+                font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+                margin-bottom: clamp(8px, 1vw, 10px);
+            }
+
+            .contact-form textarea {
+                min-height: clamp(50px, 8vh, 60px);
+            }
+
+            .contact-form button {
+                padding: clamp(5px, 1vw, 6px) clamp(10px, 1.5vw, 16px);
+                font-size: clamp(0.8rem, 1.5vw, 0.85rem);
+            }
+
+            .contact-form button .material-icons {
+                font-size: clamp(0.9rem, 1.5vw, 1rem);
+            }
+        }
+
+        /* Larger desktops (1440px and above) */
+        @media (min-width: 1440px) {
+            h1 {
+                font-size: clamp(1.8rem, 2vw, 2rem);
+                margin-bottom: clamp(20px, 2vw, 25px);
+            }
+
+            .contact-details p, .contact-details a {
+                font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+                margin-bottom: clamp(8px, 1vw, 10px);
+            }
+
+            .contact-details .material-icons {
+                font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            }
+
+            .contact-details h3 {
+                font-size: clamp(1rem, 1.5vw, 1.1rem);
+                margin: clamp(15px, 1.5vw, 20px) 0 clamp(8px, 1vw, 10px);
+            }
+
+            .contact-details h3 .material-icons {
+                font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            }
+
+            .map iframe {
+                height: clamp(120px, 10vh, 150px);
+            }
+
+            .contact-form {
+                max-width: clamp(350px, 40vw, 400px);
+            }
+
+            .contact-form label {
+                font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+            }
+
+            .contact-form label .material-icons {
+                font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            }
+
+            .contact-form input, .contact-form select, .contact-form textarea {
+                padding: clamp(6px, 1vw, 8px);
+                font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+                margin-bottom: clamp(10px, 1vw, 12px);
+            }
+
+            .contact-form textarea {
+                min-height: clamp(60px, 8vh, 80px);
+            }
+
+            .contact-form button {
+                padding: clamp(6px, 1vw, 8px) clamp(12px, 1.5vw, 20px);
+                font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+            }
+
+            .contact-form button .material-icons {
+                font-size: clamp(1rem, 1.5vw, 1.1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-section"></div>
+        <div class="content-section">
+            <h1>Contact Us</h1>
+            <div class="contact-details">
+                <p><span class="material-icons">location_on</span> Plot No: 663-665, AT: Bhimpur, P.O: Pahala, P.S: Pahala, Dist: Khordha, PIN: 751032</p>
+                <p><a href="tel:+919861053338"><span class="material-icons">phone</span> 9861053338</a></p>
+                <p><a href="mailto:info@adiilaksmi.com"><span class="material-icons">email</span> info@adiilaksmi.com</a></p>
+
+                <form class="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                    <label for="name"><span class="material-icons">person</span> Your Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email"><span class="material-icons">email</span> Email Address</label>
+                    <input type="email" id="email" name="_replyto" required>
+
+                    <label for="subject"><span class="material-icons">label</span> Subject</label>
+                    <select id="subject" name="subject">
+                        <option value="General">Project Inquiry</option>
+                        <option value="Flat">Flat Inquiry</option>
+                        <option value="Support">Support</option>
+                        <option value="Feedback">Feedback</option>
+                    </select>
+
+                    <div id="flat-inquiry-options" class="additional-options">
+                        <label for="flat-options"><span class="material-icons">home</span> Flat Type</label>
+                        <select id="flat-options" name="flat_options">
+                            <option value="2BHK">2BHK</option>
+                            <option value="3BHK">3BHK</option>
+                        </select>
+                    </div>
+
+                    <label for="message"><span class="material-icons">message</span> Message</label>
+                    <textarea id="message" name="message" rows="3" required></textarea>
+
+                    <input type="hidden" name="_subject" value="New Contact Form Submission">
+                    <input type="hidden" name="_to" value="info@adiilaksmi.com">
+
+                    <button type="submit"><span class="material-icons">send</span> Send Message</button>
+                </form>
+
+                <h3><span class="material-icons">schedule</span> Office Hours</h3>
+                <p><span class="material-icons">event</span> Monday to Friday: 9:00 am to 6:00 pm</p>
+                <p><span class="material-icons">event</span> Saturday: 9:00 am to 12:00 noon</p>
+                <p><span class="material-icons">event</span> Sunday: By appointment only</p>
+
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.842831099526!2d85.8263932752388!3d20.371144781118613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909004bcc0fff%3A0x752957d80d4dc6b8!2sCRYSTAL%2C%20ADIILAKSMI!5e1!3m2!1sen!2sin!4v1739770958090!5m2!1sen!2sin" height="120" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const subjectSelect = document.getElementById('subject');
+        const flatInquiryOptionsDiv = document.getElementById('flat-inquiry-options');
+
+        subjectSelect.addEventListener('change', () => {
+            flatInquiryOptionsDiv.classList.toggle('show-options', subjectSelect.value === 'Flat');
+        });
+    </script>
+</body>
+</html>

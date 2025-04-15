@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Loan EMI Calculator</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #1e3c72, #2a5298, #a1c4fd);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        animation: bgGradient 15s ease infinite alternate;
+      }
+
+      @keyframes bgGradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .calculator {
+        background: linear-gradient(145deg, #ffffff, #f0f4f8);
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        width: 600px;
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+        animation: floatIn 1s ease-out;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .calculator:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+      }
+
+      .calculator::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        opacity: 0.5;
+        animation: shimmer 6s infinite;
+        pointer-events: none;
+      }
+
+      @keyframes floatIn {
+        0% {
+          opacity: 0;
+          transform: translateY(50px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%);
+        }
+      }
+
+      h2 {
+        grid-column: span 2;
+        text-align: center;
+        color: #1e3c72;
+        margin: 0 0 20px 0;
+        font-weight: 700;
+        animation: titlePop 0.8s ease-out;
+      }
+
+      @keyframes titlePop {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        60% {
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      label {
+        color: #2a5298;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      label:hover {
+        color: #1e3c72;
+      }
+
+      select,
+      input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #a1c4fd;
+        border-radius: 10px;
+        box-sizing: border-box;
+        font-size: 16px;
+        background: #fff;
+        transition: all 0.3s ease;
+      }
+
+      select:hover,
+      input[type="number"]:hover {
+        border-color: #2a5298;
+        box-shadow: 0 0 10px rgba(42, 82, 152, 0.3);
+        transform: translateY(-2px);
+      }
+
+      select:focus,
+      input[type="number"]:focus {
+        outline: none;
+        border-color: #1e3c72;
+        box-shadow: 0 0 15px rgba(30, 60, 114, 0.5);
+        background: #f8fbff;
+      }
+
+      button {
+        grid-column: span 2;
+        padding: 14px;
+        background: linear-gradient(90deg, #2a5298, #1e3c72);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      button:hover {
+        transform: translateY(-4px);
+        background: linear-gradient(90deg, #1e3c72, #0f2a54);
+        box-shadow: 0 8px 20px rgba(30, 60, 114, 0.4);
+      }
+
+      button::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.6s ease,
+          height 0.6s ease;
+      }
+
+      button:hover::after {
+        width: 300px;
+        height: 300px;
+      }
+
+      #result {
+        grid-column: span 2;
+        margin-top: 20px;
+        text-align: center;
+        color: #1e3c72;
+        font-size: 16px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      #result.show {
+        opacity: 1;
+        animation: resultPop 0.7s ease-in-out;
+      }
+
+      @keyframes resultPop {
+        0% {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        60% {
+          transform: scale(1.05);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      #result p {
+        margin: 10px 0;
+        padding: 12px;
+        background: rgba(161, 196, 253, 0.2);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      #result p:hover {
+        background: rgba(42, 82, 152, 0.2);
+        transform: scale(1.02);
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>Home Loan EMI Calculator</h2>
+
+      <div class="input-group">
+        <label for="propertyType">Property Type:</label>
+        <select id="propertyType" onchange="updateLoanAmount()">
+          <option value="2bhk">2BHK</option>
+          <option value="3bhk">3BHK</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="loanAmount">Loan Amount (₹):</label>
+        <input type="number" id="loanAmount" min="0" value="5000000" />
+      </div>
+
+      <div class="input-group">
+        <label for="bank">Bank:</label>
+        <select id="bank" onchange="updateInterestRate()">
+          <option value="hdfc">HDFC Bank</option>
+          <option value="lic">LIC Housing Finance</option>
+          <option value="axis">Axis Bank</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="interestRate">Interest Rate (%):</label>
+        <input
+          type="number"
+          id="interestRate"
+          step="0.01"
+          min="0"
+          value="8.70"
+        />
+      </div>
+
+      <div class="input-group" style="grid-column: span 2">
+        <label for="tenure">Tenure (Years):</label>
+        <input
+          type="number"
+          id="tenure"
+          min="1"
+          max="30"
+          placeholder="Enter tenure in years"
+        />
+      </div>
+
+      <button onclick="calculateEMI()">Calculate EMI</button>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      // Default property prices (in ₹)
+      const propertyPrices = {
+        "2bhk": 5000000, // 50 Lakhs
+        "3bhk": 7500000, // 75 Lakhs
+      };
+
+      // Default interest rates for each bank
+      const bankInterestRates = {
+        hdfc: 8.7, // HDFC Bank
+        lic: 8.5, // LIC Housing Finance
+        axis: 8.75, // Axis Bank
+      };
+
+      // Update loan amount based on selected property type
+      function updateLoanAmount() {
+        const propertyType = document.getElementById("propertyType").value;
+        const loanAmountInput = document.getElementById("loanAmount");
+        loanAmountInput.value = propertyPrices[propertyType];
+      }
+
+      // Update interest rate based on selected bank
+      function updateInterestRate() {
+        const bank = document.getElementById("bank").value;
+        const interestRateInput = document.getElementById("interestRate");
+        interestRateInput.value = bankInterestRates[bank];
+      }
+
+      // Calculate EMI
+      function calculateEMI() {
+        const loanAmount = parseFloat(
+          document.getElementById("loanAmount").value,
+        );
+        const interestRate = parseFloat(
+          document.getElementById("interestRate").value,
+        );
+        const tenure = parseInt(document.getElementById("tenure").value);
+        const resultDiv = document.getElementById("result");
+
+        if (!loanAmount || !interestRate || !tenure) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        const monthlyInterestRate = interestRate / 12 / 100;
+        const numberOfPayments = tenure * 12;
+
+        const emi =
+          (loanAmount *
+            monthlyInterestRate *
+            Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+          (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+        const totalPayment = emi * numberOfPayments;
+        const totalInterest = totalPayment - loanAmount;
+
+        resultDiv.innerHTML = `
+                <p>Monthly EMI: ₹${emi.toFixed(2)}</p>
+                <p>Total Interest Payable: ₹${totalInterest.toFixed(2)}</p>
+                <p>Total Payment: ₹${totalPayment.toFixed(2)}</p>
+            `;
+        resultDiv.classList.add("show");
+      }
+
+      // Set initial values on page load
+      updateLoanAmount();
+      updateInterestRate();
+    </script>
+  </body>
+</html>
